@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자생한방병원 바로예약 FAQ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #2c5282;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            color: #4a5568;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .intro {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 5px solid #4299e1;
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            color: #2d3748;
+            line-height: 1.7;
+        }
+
+        .faq-container {
+            display: grid;
+            gap: 20px;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .faq-question {
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+
+        .faq-question .icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active .icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            background: #f8fafc;
+        }
+
+        .faq-answer.active {
+            padding: 25px;
+            max-height: none;
+        }
+
+        .faq-answer .content {
+            color: #2d3748;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .faq-answer ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .faq-answer li {
+            margin: 8px 0;
+            color: #4a5568;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .process-step {
+            background: #e6fffa;
+            border: 2px solid #38b2ac;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .process-step strong {
+            color: #2c7a7b;
+        }
+
+        .warning {
+            background: #fed7d7;
+            border: 2px solid #fc8181;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .warning strong {
+            color: #c53030;
+        }
+
+        .note {
+            background: #ebf8ff;
+            border: 2px solid #4299e1;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .note strong {
+            color: #2b6cb0;
+        }
+
+        .search-box {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .faq-question {
+                padding: 20px;
+                font-size: 1rem;
+            }
+        }
+
+        .faq-img-group {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .faq-img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .faq-img-caption {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+
+        .faq-img-single {
+            display: block;
+            margin: 22px auto 8px auto;
+            max-width: 340px;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border: 2px solid #e2e8f0;
+            background: #fff;
+        }
+
+        .faq-row-flex {
+            display: flex;
+            align-items: flex-start;
+            gap: 32px;
+            margin: 24px 0;
+        }
+        .faq-img-side {
+            width: 220px;
+            min-width: 180px;
+            max-width: 240px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border: 2px solid #e2e8f0;
+            background: #fff;
+            object-fit: cover;
+        }
+        .faq-row-text {
+            flex: 1;
+            min-width: 0;
+        }
+        .faq-row-text ul {
+            display: block;
+            gap: 0;
+            list-style: disc inside;
+            padding-left: 0;
+            margin: 0;
+        }
+        .faq-row-text li {
+            color: #4a5568;
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+        }
+        @media (max-width: 700px) {
+            .faq-row-flex {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .faq-row-text ul {
+                flex-direction: column;
+                gap: 0;
+            }
+            .faq-row-text {
+                white-space: normal;
+                overflow-x: visible;
+            }
+            .faq-img-side {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        .primary-status-group {
+            display: flex;
+            gap: 24px;
+            margin: 16px 0 0 0;
+            flex-wrap: wrap;
+        }
+        .primary-status-box {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px 18px 12px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 180px;
+            max-width: 240px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+        .primary-status-box img {
+            height: 40px;
+            margin-bottom: 10px;
+            border: 1.5px solid #ddd;
+            border-radius: 6px;
+            background: #fff;
+        }
+        .primary-status-box .status-title {
+            font-weight: 700;
+            font-size: 1.08rem;
+            margin-bottom: 4px;
+        }
+        .primary-status-box .status-desc {
+            font-size: 0.98rem;
+            color: #4a5568;
+        }
+        @media (max-width: 600px) {
+            .primary-status-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .primary-status-box {
+                min-width: 0;
+                max-width: 100%;
+            }
+        }
+
+        .primary-status-list {
+            margin: 10px 0 0 18px;
+            padding: 0;
+            list-style: none;
+        }
+        .primary-status-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: #2d3748;
+        }
+        .primary-status-list img {
+            height: 28px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            background: #fff;
+        }
+        @media (max-width: 600px) {
+            .primary-status-list li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            .primary-status-list img {
+                margin-left: 0;
+            }
+        }
+
+        .primary-status-modern-group {
+            display: flex;
+            gap: 28px;
+            margin: 18px 0 0 0;
+            flex-wrap: wrap;
+        }
+        .primary-status-modern {
+            display: flex;
+            align-items: center;
+            background: #f9fafb;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            padding: 18px 22px;
+            min-width: 260px;
+            max-width: 340px;
+            flex: 1 1 260px;
+            border: 1.5px solid #e2e8f0;
+            transition: box-shadow 0.2s;
+        }
+        .primary-status-modern:hover {
+            box-shadow: 0 4px 24px rgba(66,153,225,0.13);
+            border-color: #90cdf4;
+        }
+        .primary-status-modern-img {
+            height: 52px;
+            width: 52px;
+            border-radius: 8px;
+            border: 1.5px solid #cbd5e1;
+            background: #fff;
+            margin-right: 18px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        .primary-status-modern-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .primary-status-modern-title {
+            font-weight: 700;
+            font-size: 1.08rem;
+            color: #2b6cb0;
+            margin-bottom: 2px;
+        }
+        .primary-status-modern-title.available {
+            color: #38b2ac;
+        }
+        .primary-status-modern-desc {
+            font-size: 1.01rem;
+            color: #4a5568;
+        }
+        @media (max-width: 700px) {
+            .primary-status-modern-group {
+                flex-direction: column;
+                gap: 14px;
+            }
+            .primary-status-modern {
+                max-width: 100%;
+                min-width: 0;
+                padding: 14px 12px;
+            }
+            .primary-status-modern-img {
+                height: 44px;
+                width: 44px;
+                margin-right: 12px;
+            }
+        }
+
+        .primary-status-list2 {
+            margin: 12px 0 0 18px;
+            padding: 0;
+            list-style: none;
+        }
+        .primary-status-list2 li {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 14px;
+            font-size: 1.08rem;
+            color: #2d3748;
+        }
+        .primary-status-list2 img {
+            height: 64px;
+            width: 64px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fff;
+            object-fit: contain;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        @media (max-width: 600px) {
+            .primary-status-list2 li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+            .primary-status-list2 img {
+                margin-left: 0;
+            }
+        }
+
+        .primary-status-biglist {
+            margin: 18px 0 0 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .primary-status-biglist li {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            font-size: 1.12rem;
+            color: #2d3748;
+            list-style: none;
+            width: 100%;
+            max-width: 900px;
+        }
+        .primary-status-biglist .desc {
+            text-align: left;
+            font-size: 0.94rem;
+            line-height: 1.4;
+            min-width: 180px;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        .primary-status-biglist .imgdesc {
+            color: #718096;
+            font-size: 0.92rem;
+            margin-top: 0;
+            margin-left: 0;
+            text-align: left;
+            font-weight: 400;
+            display: inline-block;
+            margin-left: 18px;
+        }
+        .primary-status-biglist img {
+            width: 900px;
+            height: 65px;
+            border-radius: 12px;
+            border: 2.5px solid #e2e8f0;
+            background: #fff;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: block;
+            margin-left: 0;
+        }
+        @media (max-width: 1000px) {
+            .primary-status-biglist img {
+                width: 100%;
+                max-width: 100%;
+                height: 56px;
+            }
+            .primary-status-biglist li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .primary-status-biglist .imgdesc {
+                margin-left: 0;
+                margin-top: 6px;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🏥 자생한방병원</h1>
+            <div class="subtitle">온라인 바로예약 (실시간 예약) FAQ</div>
+        </header>
+
+        <div class="intro">
+            <p><strong>📋 온라인 바로예약이란?</strong><br>
+            고객이 직접 원하는 일정과 시간으로 예약함에 따라 확정되는 실시간 예약시스템입니다.</p>
+        </div>
+
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="🔍 궁금한 내용을 검색해보세요..." id="searchInput">
+        </div>
+
+        <div class="faq-container" id="faqContainer">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>❓ 어떻게 바로예약 할 수 있나요?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="content">
+                        <div class="process-step">
+                            <strong>📍 예약 경로</strong><br>
+                            ① 자생한방병원 홈페이지 통한 예약<br>
+                            ② 카카오톡 자생한방병원 채널 / 예약알림톡 통한 예약
+                        </div>
+                        
+                        <h4>🖥️ 예약 방법</h4>
+                        <ul>
+                            <li><span class="highlight">1. 홈페이지 - PC</span>: 홈페이지 우측 하단에서 예약</li>
+                            <li><span class="highlight">2. 홈페이지 - 모바일</span>: 모바일 홈페이지에서 예약</li>
+                            <li><span class="highlight">3. 카카오톡</span>: 자생한방병원 채널/알림톡 통한 예약</li>
+                        </ul>
+                        
+                        <div class="faq-img-group">
+                            <div>
+                                <img src="images/reserve_pc.png" alt="PC 홈페이지 우측 하단 바로예약" class="faq-img">
+                                <div class="faq-img-caption">PC 홈페이지 우측 하단 '바로예약' 버튼</div>
+                            </div>
+                            <div>
+                                <img src="images/reserve_mobile.png" alt="모바일 홈페이지 바로예약" class="faq-img">
+                                <div class="faq-img-caption">모바일 홈페이지 '바로예약' 버튼</div>
+                            </div>
+                            <div>
+                                <img src="images/reserve_kakao.png" alt="카카오톡 알림톡 예약" class="faq-img">
+                                <div class="faq-img-caption">카카오톡 알림톡 예약 화면</div>
+                            </div>
+                        </div>
+                        
+                        <div class="note">
+                            <strong>💡 참고사항</strong><br>
+                            • ①, ② 방법 모두 가능<br>
+                            • <strong>예약변경</strong> 희망 시에는 ② 방법(카카오톡)을 통해서만 가능합니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>⚙️ 어떤 절차로 예약이 되나요?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="content">
+                        <div class="process-step">
+                            <strong>🆕 초진 예약 절차</strong><br>
+                            희망 병의원 선택 -> 이름/ 주민번호(앞,뒤 13자리 입력) 입력-> 연락처 등록 -> 보험종류(건보, TA, 의료급여, 일반) 선택 -> 
+                            질환선택 → 의료진 선택(예진의 선택가능) → 희망일자 선택 → 희망시간 선택 → 예약확정
+                        </div>
+
+                        <div class="faq-row-flex">
+                            <img src="images/reserve_revisit.png" alt="재진 예약 절차 예시" class="faq-img-side">
+                            <div class="faq-row-text">
+                                <strong>🔄 재진 예약 절차</strong><br>
+                                재진 진료내역 팝업 화면에서 선택:
+                                <ul>
+                                    <li><strong>① 건강보험 → 교통사고 변경 : </strong> 희망의료진 선택 → 희망일자 선택 → 희망시간 선택 → 재초진 예약 확정
+                                    <li><strong>② 다른지역 예약 : </strong>  희망병의원 선택 → 이름/주민번호 재입력 → 연락처 등록 → 보험종류 선택 → </li> 의료진 선택 → 희망일자 선택 → 희망시간 선택 → 확정
+                                    <li><strong>③ 의료진 변경 : </strong> 의료진 변경 사유 선택 → 질환선택 → 의료진 선택 → 희망일자 및 희망시간 선택 → 확정</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="note">
+                            <strong>💡 참고사항</strong><br>
+                            • ① 기존 담당의료진이 있을 시 담당원장이라고 확인되며, 다른 의료진 선택도 가능합니다.<br>
+                            • ③ 의료진 변경 선택 후 예약 시 "[TS]의료진 변경사유"가 환자메모에 자동 기재됩니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>🔄 오프라인 예약과 온라인 예약을 같이 할 수 있나요?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="content">
+                        <h4>📋 예약 조합 가능 케이스</h4>
+                        <ul>
+                            <li><strong>① 예약이 없는 경우</strong><br>
+                            온라인예약을 통해 예약 가능</li>
+                            
+                            <li><strong>② 오프라인 1건 예약 있는 상황</strong><br>
+                            온라인예약으로 변경 가능</li>
+                            
+                            <li><strong>③ 오프라인 1건 예약 되어 있는 상태</strong><br>
+                            온라인 예약 1개 추가 예약 가능</li>
+                            
+                            <li><strong>④ 오프라인 2건 예약 중</strong><br>
+                            1건의 예약을 온라인 예약을 통해 변경 가능</li>
+                            
+                            <li><strong>⑤ 오프라인 1건 + 온라인 예약 1건</strong><br>
+                            온라인예약을 다시 변경 가능</li>
+                        </ul>
+
+                        <div class="note">
+                            <strong>💡 정리</strong><br>
+                            오프라인 예약(상담예약팀)과 온라인 예약(바로예약)은 유연하게 조합하여 이용하실 수 있습니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>🤱 처음 가는 임산부는 바로예약 할 수 없나요?</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="content">
+                        <div ="warning">
+                            <strong>⚠️ 바로예약 불가 대상</strong><br>
+                            다음의 경우 바로예약을 통한 확정예약이 불가합니다:
+                            <ul>
+                                <li>임산부 (첫 진료시)</li>
+                                <li>외국인</li>
+                                <li>산업재해</li>
+                                <li>골절 관련 첫 진료</li>
+                                <li>양방 진료 희망</li>
+                                <li>검사를 희망하는 경우</li>
+                            </ul>
+                        </div>
+
+                        <div class="process-step">
+                            <strong>📞 참고 사항</strong><br>
+                            전화번호 남기기를 통해 연락처 기재 후 <span class="highlight">상담예약팀 통한 예약</span>으로 진행해 주세요.
+                            <p> [담당 주치의 미설정] -> 전화번호 남기기 통해 연락처 기재 후 [상담예약팀 통해 확정 처리 필요]  </p>
+                        </div>
+
+                        <ul class="primary-status-biglist">
+                            <li>
+                                <div class="desc" style="color:#2b6cb0;">
+                                    ▶ 담당주치의 미설정인 경우<br>
+                                    <b style='color:#e53e3e;'>바로예약 불가</b>
+                                    <div class="subdesc">
+                                        <span style="display:block; font-size:0.75rem; color:#1462d6; margin-top:6px; line-height:1.5;">
+                                            예약 진행시, <br>[담당의료진이 확인되지 않습니다]     </br>팝업 이후 상담 접수화면으로 이동
+                                        </span>
+                                    </div>
+                                </div>
+                                <img src="images/no_primary_doctor.png" alt="담당주치의 미설정 예시">
+                            </li>
+                            <li>
+                                <div class="desc" style="color:#38b2ac;">
+                                    ▷ 담당주치의 설정된 경우<br>
+                                    <b style='color:#38b2ac;'>바로예약 가능</b></div>
+                                <img src="images/has_primary_doctor.png" alt="담당주치의 설정 예시">
+                            </li>
+                        </ul>
+
+                        <div class="note" style="margin-top:18px;">
+                            <strong>※ SWS - <b>온라인 바로예약 전화신청</b>통해 접수건 확인 후 아웃콜 진행</strong><br>
+                            <div style="margin-top:10px; color:#805ad5; text-align:center;">
+                                <img src="images/sws_outcall.png" alt="SWS 온라인 바로예약 전화신청 아웃콜 예시" style="width:800px; max-width:100%; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.08); margin:12px 0 0 0; display:block;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>👨‍⚕️ 예약하려는데 담당원장님 시간이 비활성화 되어 있어요</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="content">
+                        <div class="warning">
+                            <strong>🚫 온라인 바로예약 불가 의료진</strong><br>
+                            다음의 경우 온라인 바로예약을 통한 예약이 불가합니다:
+                            <ul>
+                                <li>퇴사예정 의료진</li>
+                                <li>대표원장님</li>
+                            </ul>
+                        </div>
+
+                        <div class="note">
+                            <strong>💡 확인 방법</strong><br>
+                            PM MEMO 상 "온라인예약 OFF"로 메모 확인 가능
+                        </div>
+
+                        <div class="process-step">
+                            <strong>📞 예약 방법</strong><br>
+                            <span class="highlight">대표번호를 통한 오프라인 예약만 가능</span>합니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>⏰ 예약하려는데 원하는 시간을 선택할 수 없어요</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="content">
+                        <h4>🔍 시간 선택 불가 사유</h4>
+                        
+                        <div class="warning">
+                            <strong>① 해당시간 예약 마감</strong><br>
+                            이미 예약이 가득 찬 시간대입니다.
+                        </div>
+
+                        <div class="warning">
+                            <strong>② 1시간 이내 예약 제한</strong><br>
+                            예약시점 시간 기준 1시간 이후 시간만 예약 가능<br>
+                            (1시간 이내 시간은 선택 불가)
+                        </div>
+
+                        <div class="warning">
+                            <strong>③ 병의원별 시간 제한</strong><br>
+                            병의원에 따라 12시/17시 예약시간은 온라인 바로예약이 어려울 수 있습니다.
+                            <p>-> 특정 의료진 혹은 예진의 클릭 후 의사예약일정 통해 예약 가능 허용수 확인 가능</p>
+                        </div>
+
+                        <div class="process-step" style="background: #e6f7f7; border: 1.5px solid #b2e0e0; border-radius: 12px; padding: 18px 18px 10px 18px; margin-bottom: 18px; overflow: visible;">
+                            <strong>💡 해결 방법</strong><br>
+                            <img src="images/doctor_time_example.png" alt="의사별 예약 허용수 예시" style="width:100%; max-width:900px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.08); margin:16px 0 18px 0; display:block;">
+                            <div style="font-size:1.02rem; color:#2d3748; margin-bottom:10px; background:#f8fafc; border-radius:8px; padding:16px 18px 10px 18px;">
+                                <b>[사진첨부 설명]</b><br>
+                                <span style="color:#2b6cb0;">온/오프 재진 (초/재초진)</span><br>
+                                ▷ 온라인, 오프라인 예약이 가능한 허용수(예약된 수 X)<br><br>
+                                <span style="color:#805ad5;">오프 재진 (초/재초진)</span><br>
+                                ▷ 오프라인(콜센터)만 예약 가능한 허용수(예약된 수 X)<br><br>
+                                <span style="color:#718096;">(오전) 해당 의료진의 경우,</span><br>
+                                온/오프라인 예약 가능시간대 : <b>9시, 9시반, 10시, 10시반, 11시 예약</b><br>
+                                오프라인 예약 가능 시간대 : <b>11시30분, 12시 예약</b><br><br>
+                                <b>예시</b>
+                                <ul style="margin-left:18px;">
+                                    <li><b>9시 재진의 경우</b> - 온라인, 오프라인 예약 중 해당시간 선착순 3명까지 허용<br>
+                                        <span style="color:#e53e3e;">3명 허용수에서 현재 재진예약 3건으로 예약 마감<br>
+                                        (예약마감으로 온라인 비활성화)</span>
+                                    </li>
+                                    <li><b>10시 재진의 경우</b> - 온라인, 오프라인 3명의 허용수 중 재진예약 2건 진행됨<br>
+                                        <span style="color:#38b2ac;">온라인 예약 혹은 오프라인으로 1명 추가 진행 가능(온라인 활성화)</span>
+                                    </li>
+                                    <li><b>11시 30분 재진의 경우</b> - 온라인 예약 불가<br>
+                                        <span style="color:#805ad5;">오프라인 예약을 통해 현재 오프라인 예약 1명 되어있어<br>
+                                        오프라인 예약 2명 추가예약 가능(온라인 비활성화)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer style="text-align: center; margin-top: 50px; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+            <p style="color: #718096; font-size: 0.9rem;">
+                📅 업데이트: 2025.06.10  
+            
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('.icon');
+            
+            // 모든 FAQ 닫기
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                if (item !== answer) {
+                    item.classList.remove('active');
+                    item.previousElementSibling.classList.remove('active');
+                    item.previousElementSibling.querySelector('.icon').textContent = '+';
+                }
+            });
+            
+            // 현재 FAQ 토글
+            answer.classList.toggle('active');
+            element.classList.toggle('active');
+            icon.textContent = answer.classList.contains('active') ? '−' : '+';
+        }
+
+        // 검색 기능
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer .content').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = searchTerm ? 'none' : 'block';
+                }
+            });
+        });
+
+        // 부드러운 스크롤 효과
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    item.style.transition = 'all 0.6s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
